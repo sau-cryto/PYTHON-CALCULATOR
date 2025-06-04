@@ -40,7 +40,6 @@ configure() sets the background color.
 
 entry_strvar = StringVar(root)
 
-
 StringVar is a special variable that stores text and updates automatically in connected widgets (like Entry).
 
 🔧 4. Functions for Calculator:
