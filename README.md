@@ -1,22 +1,44 @@
 # PYTHON-CALCULATOR
 
+# EXPLAINATION OF CODE
+🧩 1. Importing Modules:
 from tkinter import *
 from tkinter.messagebox import showerror
 
-# Creating a GUI window
+tkinter is Python’s standard GUI (Graphical User Interface) library.
+
+showerror from tkinter.messagebox is used to display error messages in popups.
+
+🪟 2. Creating the Main Window
 root = Tk()
 root.title("Python Calculator")
 root.geometry('250x500')
 root.resizable(0, 0)
 root.configure(background='LightCyan2')
+Tk() creates the main window.
 
-# StringVar variable to store the entry text
+title() sets the window title.
+
+geometry() defines its size (width x height).
+
+resizable(0, 0) makes the window non-resizable.
+
+configure() sets the background color.
+
+📝 3. Managing Input
 entry_strvar = StringVar(root)
 
-# Creating the functions
+
+StringVar is a special variable that stores text and updates automatically in connected widgets (like Entry).
+
+🔧 4. Functions for Calculator
 def add_text(text, strvar: StringVar):
     strvar.set(f'{strvar.get()}{text}')
 
+
+Appends the button’s text to the current string in the input box.
+
+✅ Submit (Calculate)
 def submit(entry: Entry, strvar: StringVar):
     operation = entry.get()
     try:
@@ -24,47 +46,72 @@ def submit(entry: Entry, strvar: StringVar):
         strvar.set(f"{operation}={result}")
     except:
         showerror('Error!', 'Please enter a properly defined equation!')
+Gets the entered expression.
 
-# Defining the top labels
-Label(root, text='Python Calculator', font=("Comic Sans MS", 15), bg='LightCyan2').place(x=25, y=0)
-Label(root, text="Press 'x' twice for exponentiation", font=("Georgia", 10), bg='LightCyan2').place(x=10, y=30)
 
-# Entry widget
-Equ_entry = Entry(root, justify=RIGHT, textvariable=entry_strvar, width=22, font=12)
-Equ_entry.place(x=10, y=70)
+Replaces 'x' with '*' (Python uses * for multiplication).
 
-# Number Buttons
-Button(root, height=2, width=5, text='7', font=9, bg='Gold', command=lambda: add_text("7", entry_strvar)).place(x=5, y=170)
-Button(root, height=2, width=5, text='8', font=9, bg='Gold', command=lambda: add_text('8', entry_strvar)).place(x=65, y=170)
-Button(root, height=2, width=5, text='9', font=9, bg='Gold', command=lambda: add_text('9', entry_strvar)).place(x=125, y=170)
+Evaluates the result using eval() (built-in Python function).
 
-Button(root, height=2, width=5, text='4', font=9, bg='Gold', command=lambda: add_text('4', entry_strvar)).place(x=5, y=225)
-Button(root, height=2, width=5, text='5', font=9, bg='Gold', command=lambda: add_text('5', entry_strvar)).place(x=65, y=225)
-Button(root, height=2, width=5, text='6', font=9, bg='Gold', command=lambda: add_text('6', entry_strvar)).place(x=125, y=225)
+Displays result, or shows error if something is wrong.
 
-Button(root, height=2, width=5, text='1', font=9, bg='Gold', command=lambda: add_text('1', entry_strvar)).place(x=5, y=280)
-Button(root, height=2, width=5, text='2', font=9, bg='Gold', command=lambda: add_text('2', entry_strvar)).place(x=65, y=280)
-Button(root, height=2, width=5, text='3', font=9, bg='Gold', command=lambda: add_text('3', entry_strvar)).place(x=125, y=280)
+⚠️ eval() is powerful but potentially unsafe with untrusted input.
 
-Button(root, height=2, width=5, text='0', font=9, bg='Gold', command=lambda: add_text('0', entry_strvar)).place(x=5, y=340)
+🏷️ 5. Top Labels:
+Label(...).place(...)
+Creates text labels:
 
-# Operator Buttons
-Button(root, height=2, width=5, text='+', font=9, bg='DarkOrange', command=lambda: add_text('+', entry_strvar)).place(x=195, y=340)
-Button(root, height=2, width=5, text='-', font=9, bg='DarkOrange', command=lambda: add_text('-', entry_strvar)).place(x=195, y=280)
-Button(root, height=2, width=5, text='x', font=9, bg='DarkOrange', command=lambda: add_text('*', entry_strvar)).place(x=195, y=225)
-Button(root, height=2, width=5, text='/', font=9, bg='DarkOrange', command=lambda: add_text('/', entry_strvar)).place(x=195, y=170)
+Title ("Python Calculator")
 
-Button(root, height=2, width=5, text='.', font=9, bg='DarkOrange', command=lambda: add_text('.', entry_strvar)).place(x=65, y=340)
-Button(root, height=2, width=5, text='(', font=9, bg='DarkOrange', command=lambda: add_text('(', entry_strvar)).place(x=65, y=110)
-Button(root, height=2, width=5, text=')', font=9, bg='DarkOrange', command=lambda: add_text(')', entry_strvar)).place(x=125, y=110)
+Instruction ("Press 'x' twice for exponentiation")
 
-# Equal, C, and AC buttons
-Button(root, height=2, width=5, text='=', font=9, bg='Blue', command=lambda: submit(Equ_entry, entry_strvar)).place(x=125, y=340)
-Button(root, height=2, width=5, text='C', font=9, bg='OrangeRed', command=lambda: entry_strvar.set(entry_strvar.get()[:-1])).place(x=195, y=110)
-Button(root, height=2, width=5, text='AC', font=9, bg='Red', command=lambda: entry_strvar.set('')).place(x=5, y=110)
+🔢 6. Input Entry Widget:
+Equ_entry = Entry(...)
 
-# Ok Button
-Button(root, height=2, width=22, text='Ok', font=9, bg='CadetBlue', command=lambda: root.destroy()).place(x=7, y=420)
+Text entry box where the equation is typed or displayed.
 
-# Start the main loop
+textvariable=entry_strvar binds the box to the StringVar.
+
+🔘 7. Buttons for Numbers and Operators:
+Button(..., text='7', ..., command=lambda: add_text("7", entry_strvar)).place(...)
+
+Creates a button labeled 7 that appends "7" to the input when clicked.
+
+Example for operator:
+Button(..., text='+', ..., command=lambda: add_text('+', entry_strvar)).place(...)
+Same logic for operators like +, -, *, /, (, ) etc.
+
+🟠 8. Special Buttons
+= Equal button
+
+Button(..., text='=', ..., command=lambda: submit(Equ_entry, entry_strvar))
+Calls submit() to evaluate the expression.
+
+C (Clear last character)
+Button(..., text='C', ..., command=lambda: entry_strvar.set(entry_strvar.get()[:-1]))
+Removes the last character from the input.
+
+AC (All Clear)
+Button(..., text='AC', ..., command=lambda: entry_strvar.set(''))
+Clears the entire input.
+
+Ok
+Button(..., text='Ok', ..., command=lambda: root.destroy())
+Closes the calculator window.
+
+🌀 9. Start the GUI
 root.mainloop()
+Starts the main event loop. The app waits for user interaction here.
+
+✅ Summary
+ calculator:
+
+Lets users input equations using on-screen buttons.
+
+Evaluates math using Python's eval().
+
+Handles errors gracefully.
+
+Has a GUI built entirely using tkinter.
+
+       
